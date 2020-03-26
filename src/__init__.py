@@ -129,7 +129,7 @@ class OpenSQLManager:
         status_bar.pack(side=BOTTOM, fill=X)
 
     def open(self):
-        file = filedialog.askopenfile()
+        file = filedialog.askopenfile(filetypes=[("SQL files", ".sql")])
         file_name = file.name
         self._query_text.insert(INSERT, file.read())
 
