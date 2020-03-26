@@ -114,7 +114,7 @@ class OpenSQLManager:
         self._query_frame.pack(side=LEFT, fill=X)
         # query_frame.grid(row=1, column=1, pady=20, sticky=E)
         # Crear caja de texto.
-        self._query_text = scrolledtext.ScrolledText(self._query_frame, width=400, height=240, wrap=tk.WORD)
+        self._query_text = scrolledtext.ScrolledText(self._query_frame, width=400, height=240, wrap=tk.WORD, undo= True)
         self._query_text.pack(side=LEFT, fill=X)
 
     # def load_lang(self):
@@ -182,11 +182,10 @@ class OpenSQLManager:
 
     def save(self):
         if self._file_name is None:
-            path = filedialog.asksaveasfilename()
+            path = filedialog.asksaveasfilename(filetypes=[("SQL files", ".sql")])
             self._file_name = path
             write = open(self._file_name, mode='w')
             text = self._query_text.get("1.0", tk.END)
-            print(text)
             lines = write.write(text)
 
     def exit(self):
