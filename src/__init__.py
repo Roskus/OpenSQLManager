@@ -2,7 +2,7 @@
  OpenSQLManager
  @author Gustavo Novaro
  @license MIT
- @version 0.1.2
+ @version 0.1.3
 """
 import os
 import sys
@@ -55,22 +55,30 @@ class SQL:
     ]
 
 
-# Main Class
-class OpenSQLManager:
-    _application = None
-    _path = None
-    _window = None
-    _locale = None
-    _locales = ['en', 'es']
-    _tree_view = None
+class Connection:
     _host = None
     _db = None
     _user = None
     _password = None
     _port = None
 
+
+# Main Class
+class OpenSQLManager:
+    TITLE = 'OpenSQLManager | Open Source SQL Administration Manager'
+    _title = TITLE
+    _application = None
+    _path = None
+    _window = None
+    _locale = None
+    _locales = ['en', 'es']
+    _tree_view = None
+
     _query_frame = None
     _query_text = None
+
+    # Editor
+    _file_name = None  # Must be a collection..? for multitabs
 
     # Constructor
     def __init__(self):
@@ -78,7 +86,7 @@ class OpenSQLManager:
         self._window.geometry("1024x768")
         # Default maximized
         self._window.attributes('-zoomed', True)
-        self._window.title('OpenSQLManager | Open Source SQL Administration Manager')
+        self._window.title(self._title)
         self._path = os.path.abspath(os.getcwd())
         print(self._path)
         icon_path = os.path.join(self._path, 'db.png')
@@ -128,7 +136,7 @@ class OpenSQLManager:
         file_menu = Menu(main_menu, tearoff=0)
         file_menu.add_command(label="New", command=self.donothing)
         file_menu.add_command(label="Open", command=self.open)
-        file_menu.add_command(label="Save", command=self.donothing)
+        file_menu.add_command(label="Save", command=self.save)
         file_menu.add_command(label="Save as...", command=self.donothing)
         file_menu.add_command(label="Close", command=self.donothing)
         file_menu.add_separator()
@@ -157,7 +165,7 @@ class OpenSQLManager:
         about_menu = Menu(main_menu, tearoff=0)
         about_menu.add_command(label="Help", command=self.donothing)
         about_menu.add_separator()
-        about_menu.add_command(label="About", command=self.donothing)
+        about_menu.add_command(label="About", command=self.about)
         main_menu.add_cascade(label="About", menu=about_menu)
 
         # display the menu
@@ -172,10 +180,22 @@ class OpenSQLManager:
         file_name = file.name
         self._query_text.insert(INSERT, file.read())
 
+    def save(self):
+        if self._file_name is None:
+            path = filedialog.asksaveasfilename()
+            self._file_name = path
+            write = open(self._file_name, mode='w')
+            text = self._query_text.get("1.0", tk.END)
+            print(text)
+            lines = write.write(text)
+
     def exit(self):
         ans = messagebox.askquestion(title="Exit", message="Do you want to exit?", icon='warning')
         if ans == 'yes':
             self._window.destroy()
+
+    def about(self):
+        messagebox.showinfo("About", self.TITLE + "\nCreated in Python using Tkinter\nby Gustavo Novaro")
 
     def donothing(self):
         # nothig
