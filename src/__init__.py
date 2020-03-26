@@ -2,20 +2,57 @@
  OpenSQLManager
  @author Gustavo Novaro
  @license MIT
- @version 0.1.0
+ @version 0.1.2
 """
 import os
 import sys
 import pymysql
 import json
 import i18n
+import tkinter as tk
 
 from tkinter import ttk
 from tkinter import messagebox
 from tkinter import filedialog
+from tkinter import scrolledtext
 from tkinter import *
 
 from i18n import *
+
+
+class SQL:
+    keywords = [
+        'ADD',
+        'ALTER',
+        'BTREE',
+        'BY',
+        'CREATE',
+        'CHAR',
+        'CHARSET',
+        'DROP',
+        'ENGINE',
+        'FROM',
+        'UPDATE',
+        'SELECT',
+        'TABLE',
+        'PROCEDURE',
+        'FUNCTION',
+        'INDEX',
+        'VARCHAR',
+        'UNIQUE',
+        'USING',
+        'NOT',
+        'NULL',
+        'IF',
+        'UNIQUE',
+        'PRIMARY',
+        'KEY',
+        'GROUP'
+        'ORDER',
+        'ASC',
+        'DESC',
+        'DEFAULT'
+    ]
 
 
 # Main Class
@@ -39,6 +76,8 @@ class OpenSQLManager:
     def __init__(self):
         self._window = Tk()
         self._window.geometry("1024x768")
+        # Default maximized
+        self._window.attributes('-zoomed', True)
         self._window.title('OpenSQLManager | Open Source SQL Administration Manager')
         self._path = os.path.abspath(os.getcwd())
         print(self._path)
@@ -55,19 +94,19 @@ class OpenSQLManager:
     def sidebar_render(self):
         sidebar = LabelFrame(self._window, text='Connections')
         sidebar.pack(side=LEFT)
-        #sidebar.grid(row=1, column=0, pady=20, sticky=W)
+        # sidebar.grid(row=1, column=0, pady=20, sticky=W)
 
         self._tree_view = ttk.Treeview(sidebar, height=240)
         self._tree_view.heading('#0', text="Databases")
         self._tree_view.pack(side=LEFT)
-        #self._tree_view.grid(row=1, column=0)
+        # self._tree_view.grid(row=1, column=0)
 
     def query_render(self):
         self._query_frame = LabelFrame(self._window, text='Query')
         self._query_frame.pack(side=LEFT, fill=X)
-        #query_frame.grid(row=1, column=1, pady=20, sticky=E)
+        # query_frame.grid(row=1, column=1, pady=20, sticky=E)
         # Crear caja de texto.
-        self._query_text = Text(self._query_frame, height=240)
+        self._query_text = scrolledtext.ScrolledText(self._query_frame, width=400, height=240, wrap=tk.WORD)
         self._query_text.pack(side=LEFT, fill=X)
 
     # def load_lang(self):
@@ -151,6 +190,7 @@ class DbDesigner:
         self.application = application
         self.application.geometry("300x300+500+200")
         self.application["bg"] = "navy"
+
 
 # Run App
 application = OpenSQLManager()
