@@ -12,7 +12,9 @@ import i18n
 
 from tkinter import ttk
 from tkinter import messagebox
+from tkinter import filedialog
 from tkinter import *
+
 from i18n import *
 
 
@@ -29,6 +31,9 @@ class OpenSQLManager:
     _user = None
     _password = None
     _port = None
+
+    _query_frame = None
+    _query_text = None
 
     # Constructor
     def __init__(self):
@@ -58,12 +63,12 @@ class OpenSQLManager:
         #self._tree_view.grid(row=1, column=0)
 
     def query_render(self):
-        query_frame = LabelFrame(self._window, text='Query')
-        query_frame.pack(side=LEFT, fill=X)
+        self._query_frame = LabelFrame(self._window, text='Query')
+        self._query_frame.pack(side=LEFT, fill=X)
         #query_frame.grid(row=1, column=1, pady=20, sticky=E)
         # Crear caja de texto.
-        entry = Text(query_frame, height=240)
-        entry.pack(side=LEFT, fill=X)
+        self._query_text = Text(self._query_frame, height=240)
+        self._query_text.pack(side=LEFT, fill=X)
 
     # def load_lang(self):
     # i18n.set('file_format', 'json')
@@ -83,7 +88,7 @@ class OpenSQLManager:
         # File
         file_menu = Menu(main_menu, tearoff=0)
         file_menu.add_command(label="New", command=self.donothing)
-        file_menu.add_command(label="Open", command=self.donothing)
+        file_menu.add_command(label="Open", command=self.open)
         file_menu.add_command(label="Save", command=self.donothing)
         file_menu.add_command(label="Save as...", command=self.donothing)
         file_menu.add_command(label="Close", command=self.donothing)
@@ -122,6 +127,11 @@ class OpenSQLManager:
     def status_bar_render(self):
         status_bar = Label(self._window, text="Not connected", bd=1, relief=SUNKEN, anchor=W)
         status_bar.pack(side=BOTTOM, fill=X)
+
+    def open(self):
+        file = filedialog.askopenfile()
+        file_name = file.name
+        self._query_text.insert(INSERT, file.read())
 
     def exit(self):
         ans = messagebox.askquestion(title="Exit", message="Do you want to exit?", icon='warning')
