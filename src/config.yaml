@@ -1,0 +1,8 @@
+locale:
+  lang: es
+connections:
+  local:
+    host: localhost
+    user: root
+    pass: root
+    port: 3306
