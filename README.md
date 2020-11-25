@@ -19,3 +19,6 @@ sudo apt-get install python3-tk
 ```bash
 python3 __init__.py
 ```
+
+## Configuration
+src/config.yaml
