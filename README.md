@@ -13,6 +13,7 @@ OpenSQLManager is an open source software maked in Python 3 and Tkinter for Mana
 ## Install
 ```bash
 sudo apt-get install python3-tk
+pip3 install python-i18n
 ```
 
 ## Run
