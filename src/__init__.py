@@ -2,7 +2,7 @@
  OpenSQLManager
  @author Gustavo Novaro
  @license MIT
- @version 0.1.3
+ @version 1.0.1
 """
 import os
 import sys
@@ -18,6 +18,7 @@ from tkinter import scrolledtext
 from tkinter import *
 
 from i18n import *
+from version import VERSION_STR
 
 
 class SQL:
@@ -85,7 +86,31 @@ class SQL:
         'VALUES',
         'VIEW',
         'WHERE',
-        'WHEN'
+        'WHEN',
+        'NOW',
+        'DATE',
+        'TIME',
+        'YEAR',
+        'MONTH',
+        'DAY',
+        'HOUR',
+        'MINUTE',
+        'SECOND',
+        'MICROSECOND',
+        'RETURN',
+        'SET',
+        'INTEGER',
+        'TEXT',
+        'REAL',
+        'FLOAT',
+        'DOUBLE',
+        'DECIMAL',
+        'BOOLEAN',
+        'BLOB',
+        'TRIGGER',
+        'FOREIGN',
+        'KEYS',
+        'DEFINER'
     ]
 
 
@@ -261,7 +286,11 @@ class OpenSQLManager:
             self._window.destroy()
 
     def about(self):
-        messagebox.showinfo(i18n.t("osqlm.About"), self.TITLE + "\nCreated in Python using Tkinter\nby Gustavo Novaro")
+        messagebox.showinfo(i18n.t("osqlm.About"), 
+                           self.TITLE + 
+                           f"\nVersion: {VERSION_STR}" +
+                           "\nCreated in Python using Tkinter" +
+                           "\nby Gustavo Novaro")
 
     def donothing(self):
         # nothig

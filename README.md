@@ -3,6 +3,7 @@
 OpenSQLManager is an open source software maked in Python 3 and Tkinter for Manage SQL Databases.
 
 ## Features
+
 * Connect to Database
 * Run queries
 * Import SQL scripts
@@ -11,15 +12,33 @@ OpenSQLManager is an open source software maked in Python 3 and Tkinter for Mana
 * Cross plataform
 
 ## Install
+
+System dependencies:
+
+### Linux
+
 ```bash
 sudo apt-get install python3-tk
-pip3 install python-i18n
+```
+
+### macOS
+
+```bash
+brew install python-tk
+```
+
+Install Python dependencies:
+
+```bash
+pip3 install -r requirements.txt
 ```
 
 ## Run
+
 ```bash
 python3 __init__.py
 ```
 
 ## Configuration
+
 src/config.yaml
